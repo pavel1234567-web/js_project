@@ -33,7 +33,9 @@ class Command(BaseCommand):
                 "name": p.name,
                 "price": float(p.price),
                 "article": p.article,
-                "image": image_path
+                "image": image_path,
+                "category": p.category.name if p.category else "",
+                "description": p.description
             })
 
         content = f"const products = {json.dumps(products_list, indent=2, ensure_ascii=False)};\n\nexport default products;"

@@ -1,11 +1,19 @@
 from django.contrib import admin
 from django.utils.html import mark_safe
-from .models import Product
+from .models import Product, Category
+
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("article","name", "price","image_preview")
+    list_display = ("category","article","name", "price","image_preview")
+    list_filter = ("category",)
     search_fields = ("article","name","price",)
+    prepopulated_fields = {"slug": ("name",)}
     readonly_fields = ("image_preview",)  # превью в форме редактирования (не редактируемое)
 
 

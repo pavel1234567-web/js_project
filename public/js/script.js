@@ -56,8 +56,18 @@ function updateProducts() {
       p.price.toString().includes(currentSearch)||
       (p.article && p.article.toLowerCase().includes(currentSearch)); // поиск по артикулу
 
+
+    const matchesCategory =
+      !categoryFilter.value || p.category === categoryFilter.value;
+
+
+
     // Возвращаем только те товары, которые подходят под оба условия
-    return matchesPrice && matchesSearch;
+    return matchesPrice && matchesSearch&& matchesCategory;;
+
+
+   
+
   });
 
   // Сортировка по возрастанию цены
@@ -102,13 +112,40 @@ function createCard(p) {
         <img src="${p.image}" class="card-img-top img-fluid" alt="${p.name}">
         <div class="card-body">
           <h5 class="card-title">${p.name}</h5>
+          <p class="card-text text-muted">Описание: ${p.description}</p>
           <p class="card-text text-muted">Артикул: ${p.article}</p>
           <p class="card-text text-success fw-bold">${p.price} грн</p>
+          <p class="card-text text-success fw-bold">${p.category} </p>
+
         </div>
       </div>
     </div>
   `;
 }
+
+
+
+
+
+const categoryFilter = document.getElementById("categoryFilter");
+
+// Получаем все уникальные категории из массива товаров
+function initCategories() {
+  const categories = [...new Set(products.map(p => p.category))];
+  categories.forEach(cat => {
+    const option = document.createElement("option");
+    option.value = cat;
+    option.textContent = cat;
+    categoryFilter.appendChild(option);
+  });
+}
+
+// Добавляем фильтрацию по категории
+categoryFilter.addEventListener("change", () => {
+  currentPage = 1;
+  updateProducts();
+});
+
 
 
 // ================= РЕНДЕР СТРАНИЦЫ =================
@@ -254,4 +291,5 @@ window.addEventListener("resize", () => {
 
 
 // ================= ЗАПУСК ПРИ ЗАГРУЗКЕ =================
+initCategories();
 updateProducts();
