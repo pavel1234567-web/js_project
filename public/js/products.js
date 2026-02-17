@@ -131,6 +131,13 @@ const products = [
     "price": 90.0,
     "article": "90",
     "image": "public/img/products/20180915_113204_000019_xw8atsH.png"
+  },
+  {
+    "id": 20,
+    "name": "товар для  сайта",
+    "price": 50.0,
+    "article": "800",
+    "image": "public/img/products/20180915_113204_000019_WqW3GCr.png"
   }
 ];
 
