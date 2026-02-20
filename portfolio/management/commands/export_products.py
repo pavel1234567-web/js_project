@@ -12,6 +12,7 @@ class Command(BaseCommand):
         SITE_DIR = Path(settings.BASE_DIR)  # корень проекта
         JS_FILE = SITE_DIR / "public" / "js" / "products.js"
         IMG_DIR = SITE_DIR / "public" / "img" / "products"
+        # IMG_DIR = SITE_DIR / "media"  / "products"
         JS_FILE.parent.mkdir(parents=True, exist_ok=True)
         IMG_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -27,6 +28,8 @@ class Command(BaseCommand):
                         shutil.copy2(src, dest)
                     # image_path = f"../public/img/products/{src.name}"
                     image_path = f"public/img/products/{src.name}"
+                    # image_path = f"media/products/{src.name}"
+                    
 
             products_list.append({
                 "id": p.id,
